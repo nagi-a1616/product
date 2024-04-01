@@ -24,7 +24,7 @@
            
             <div class="col-sm-12 col-md-3">
             <select class="form-select" id="company_id" name="company_id">
-            <option selected>メーカー名</option>
+            <option selected value="">メーカー名</option>
                 @foreach($companies as $company)
                     <option value="{{ $company->id }}">{{ $company->company_name }}</option>
                 @endforeach

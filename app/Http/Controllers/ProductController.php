@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Product; 
 use App\Models\Company; 
-use App\Models\Image;
-
 use Illuminate\Http\Request;
 // Requestクラスはブラウザに表示させるフォームから送信されたデータをコントローラのメソッドで引数として受け取ることができます。
 
@@ -20,7 +18,7 @@ class ProductController extends Controller
             $companies = Company::all();
             
     if($search = $request->search){
-        $query->where('product_name', 'LIKE', "%{$search}%");
+        $query->where('product_name', 'LIKE', "%".$search."%");
     }
     if($select = $request->company_id){
         $query->where('company_id','=',$select);
@@ -154,12 +152,6 @@ class ProductController extends Controller
 
         // 取得したファイル名で保存
         $request->file('img_path')->storeAs('public/' . $dir, $file_name);
-
-         // ファイル情報をDBに保存
-         $image = new Image();
-         $image->name = $file_name;
-         $image->path = 'storage/' . $dir . '/' . $file_name;
-         $image->save();
 
    
     return redirect()->route('products.index')
